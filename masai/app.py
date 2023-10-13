@@ -13,10 +13,10 @@ def hello_world():
     return  data
 
 @app.route("/user/create", methods=["POST"])
-def saveUser():   #save the user and return boolean value
+def saveUser():   #save the user and return string value
     data = request.get_json()
-
-    return data
+    res=configDb.createUser(data)
+    return make_response({"result":res}, 201)
 
 @app.route("/user/checkMobile/<mobile>", methods=["GET"])   
 def checkMobileNumber(mobile):   # check mobile number if it avliable in our db or not {return true/ false}

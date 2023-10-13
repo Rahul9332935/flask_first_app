@@ -2,7 +2,7 @@ from flask import Flask, make_response
 from sqlalchemy import create_engine, text
 
 
-engine = create_engine("mysql+pymysql://root:root@localhost:3306/masaiSED?charset=utf8mb4")
+engine = create_engine("mysql+pymysql://root:ashish189@localhost:3306/masaiSED?charset=utf8mb4")
 
 def getAllData():
     with engine.connect() as con:
@@ -28,7 +28,7 @@ def checkMobile(mobile):
         result = con.execute(query)
         result_all = result.fetchall()
 
-    if result_all:
+    if len(result_all)>0:
         # Mobile number exists in the database
         return True
     else:
@@ -42,7 +42,7 @@ def checkEmail(email):
         result = con.execute(query)
         result_all = result.fetchall()
 
-    if result_all:
+    if len(result_all)>0:
         # email exists in the database
         return True
     else:
@@ -57,7 +57,7 @@ def loginUsingEmail(obj):  #obj= { "email":"rahul1@gmail.com", "password":"passw
             result = con.execute(query)
             result_all = result.fetchall()
             print(result_all)
-            if result_all:
+            if len(result_all)>0:
                 # email exists in the database
                 return (result_all[0])[1] # return user name
             else:
@@ -74,7 +74,7 @@ def loginUsingMobile(obj):  #obj= { "mobile":"5945451256", "password":"password"
             result = con.execute(query)
             result_all = result.fetchall()
             print(result_all)
-            if result_all:
+            if len(result_all)>0:
                 # mobile exists in the database
                 return (result_all[0])[1] # return user name
             else:
@@ -93,26 +93,28 @@ data = {
 }"""
 
 def createUser(obj):
-    if checkEmail(obj["email"]):
+    if checkEmail(obj['email']):
         return "email already exist!!"
     elif checkMobile(obj["mobile"]):
-        print(obj["mobile"])
+        print(obj['mobile'])
         return "mobile already exist!!"
     else:
         with engine.connect() as con:
             query = text(f"INSERT INTO user (name, mobile, email, password) values ( '{obj["name"]}', '{obj["mobile"]}', '{obj["email"]}', '{obj["password"]}')")
             con.execute(query)
             con.commit()
+            return "user signup successfully"
             
 
 
 # obj= { "mobile":"1234467890", "password":"password123"}
 data = {
-"name": "An4kit89",
-"mobile" : "1454338996",
-"email": "an45ekit4@ex1ample.com",
-"password" : "passwo5rd132"
+"name": "Ashiii",
+"mobile" : "98566654",
+"email": "ajdfg4@y55u.com",
+"password" : "passwo5r545d132"
 }
-createUser(data)
+print(createUser(data))
+
 
 # print(loginUsingMobile(obj))
