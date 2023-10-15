@@ -63,7 +63,7 @@ def loginUsingEmail(obj):
     if checkEmail(obj["email"]):
         with engine.connect() as con:
           query = text(
-                f"SELECT * FROM user1 WHERE email = :e && password = :pas")
+                "SELECT * FROM user1 WHERE email = :e && password = :pas")
             result = con.execute(query, e=obj['email'], pas=obj['password'])
             result_all = result.fetchall()
             if len(result_all):
