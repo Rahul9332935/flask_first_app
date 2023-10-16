@@ -25,13 +25,13 @@ class TestApp(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
 
     def test_check_mobile_exists(self):
-        response = self.app.get('/user/checkMobile/1454738996')
+        response = self.app.post('/user/checkMobile/1454738996')
         self.assertEqual(response.status_code, 201)
         data = response.get_json()
         self.assertTrue(data['result'])
 
     def test_check_email_exists(self):
-        response = self.app.get('/user/checkEmail/an45ek5it4@ex1ample.com')
+        response = self.app.post('/user/checkEmail/an45ek5it4@ex1ample.com')
         self.assertEqual(response.status_code, 201)
         data = response.get_json()
         self.assertTrue(data['result'])

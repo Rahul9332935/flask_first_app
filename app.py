@@ -27,7 +27,7 @@ def saveUser():  # save the user and return boolean value
         return make_response(obj, 400)
 
 
-@app.route("/user/checkMobile/<mobile>", methods=["GET"])
+@app.route("/user/checkMobile/<mobile>", methods=["POST"])
 # check mobile number if it avliable in our db or not {return true/ false}
 def checkMobileNumber(mobile):
     res = configDb.checkMobile(mobile)
@@ -40,7 +40,7 @@ def checkMobileNumber(mobile):
         return make_response(obj, 400)
 
 
-@app.route("/user/checkEmail/<email>", methods=["GET"])
+@app.route("/user/checkEmail/<email>", methods=["POST"])
 # check email if it avliable in our db or not {return true/ false}
 def checkEmail(email):
     res = configDb.checkEmail(email)
