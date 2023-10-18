@@ -57,14 +57,20 @@ def checkEmail(email):
 def mobileLogin():   # we get user mobile and password in JSON formate
     data = request.get_json()
     res = configDb.loginUsingMobile(data)
-    return make_response({"result": res}, 200)
+    if res["status"] =="success":
+      return make_response(res, 200)
+    else :
+      return make_response(res, 401)
 
 
 @app.route("/user/login/UsingEmail", methods=["POST"])
 def emailLogin():   # we get user email and password in JSON formate
     data = request.get_json()
     res = configDb.loginUsingEmail(data)
-    return make_response({"result": res}, 200)
+    if res["status"] =="success":
+      return make_response(res, 200)
+    else :
+      return make_response(res, 401)
 
 if __name__ == "__main__":
   app.run(host='0.0.0.0',debug=True)

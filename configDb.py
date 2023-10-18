@@ -68,14 +68,17 @@ def loginUsingEmail(obj):
             )
             result = con.execute(query)
             result_all = result.fetchall()
-            if len(result_all):
-                # email exists in the database
-                return result_all[0][1]  # return user name
-            else:
-                # email does not exist in the database
-                return "wrong password!!"
+        if len(result_all):
+        # mobile exists in the database
+          obj ={"res":result_all[0][1], "status" : "success"}
+          return obj  # return user name
+        else:
+        # mobile does not exist in the database
+          obj ={"res":"wrong password!!", "status" : "fail"}
+          return obj
     else:
-        return "please signUp!!"
+          obj ={"res":"invalid email id!!", "status" : "fail"}
+          return obj
 
 
 
@@ -91,12 +94,15 @@ def loginUsingMobile(obj):
           result_all = result.fetchall()
           if len(result_all):
               # mobile exists in the database
-              return result_all[0][1]  # return user name
+              obj ={"res":result_all[0][1], "status" : "success"}
+              return obj  # return user name
           else:
               # mobile does not exist in the database
-              return "wrong password!!"
+              obj ={"res":"wrong password!!", "status" : "fail"}
+              return obj
     else:
-        return "please signUp!!"
+        obj ={"res":"invalid mobile number", "status" : "fail"}
+        return obj
 
 
 
